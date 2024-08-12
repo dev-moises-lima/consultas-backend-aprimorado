@@ -27,21 +27,6 @@ return new class extends Migration
             $table->integer('frequencia_cardiaca');
             $table->integer('respiracao');
             $table->decimal('temperatura', places: 1);
-
-            // $table->boolean("febre");
-            // $table->boolean("coriza");
-            // $table->boolean("nariz_entupido");
-            // $table->boolean("cansaco");
-            // $table->boolean("tosse");
-            // $table->boolean("dor_de_cabeca");
-            // $table->boolean("dores_no_corpo");
-            // $table->boolean("mal_estar_geral");
-            // $table->boolean("dor_de_garganta");
-            // $table->boolean("dificuldade_de_respirar");
-            // $table->boolean("falta_de_paladar");
-            // $table->boolean("falta_de_olfato");
-            // $table->boolean("dificuldade_de_locomocao");
-            // $table->boolean("diarreia");
         });
     }
 
