@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ConsultaCadastrada;
 use App\Http\Requests\ConsultaStoreRequest;
 use App\Models\Consulta;
 use App\Models\Paciente;
@@ -39,15 +40,15 @@ class ConsultaController extends Controller
         $dados['paciente_id'] = $pacienteId;
         $dados['porcentagem_dos_sintomas_sentidos'] = $porcentagemDosSintomasSentidos;
 
-        Consulta::create($dados);
-
+        $consulta = Consulta::create($dados);
         $paciente = Paciente::find($pacienteId);
         $paciente->condicao_atual = $condicaoDoPaciente;
         $paciente->save();
 
-        return response(['mensagem' => 'Consulta criada.'], 201);
+        broadcast(new ConsultaCadastrada($consulta, $paciente))->toOthers();
+
+
+        return response(['mensagem' => 'Consulta criada.', 'consulta' => $consulta, 'paciente' => $paciente], 201);
     }
-
-
 
 }

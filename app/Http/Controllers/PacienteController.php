@@ -43,7 +43,7 @@ class PacienteController extends Controller
         $paciente = Paciente::find($pacienteId);
 
         if(empty($paciente)) {
-            return response(['mensagem' => "Paciente com o id {$pacienteId} não foi encontrado"], 404);
+            return response(['mensagem' => "Paciente com o id {$pacienteId} não foi encontrado"], 400);
         }
 
         return $paciente;
