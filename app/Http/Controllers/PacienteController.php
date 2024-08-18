@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PacienteCadastrado;
 use App\Http\Requests\PacienteStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
@@ -22,12 +23,13 @@ class PacienteController extends Controller
         $imagemManager = ImageManager::gd()->read($caminhoDaFoto);
         $imagemManager->cover(300, 300);
         $nomeDaFoto = uniqid() . '.' . $extensaoDaFoto;
-        $imagemManager->save("..\storage\app\public\imagens\\$nomeDaFoto");
+        $imagemManager->save("../storage/app/public/imagens/$nomeDaFoto");
         $novoCaminhoDaFoto = asset('storage/imagens/' . $nomeDaFoto);
 
         $dados['foto'] = $novoCaminhoDaFoto;
 
-        Paciente::create($dados);
+        $paciente = Paciente::create($dados);
+        broadcast(new PacienteCadastrado($paciente))->toOthers();
 
         return response(['mensagem' => 'Paciente cadastrado.'], 201);
     }
