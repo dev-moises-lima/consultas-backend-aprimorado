@@ -31,7 +31,7 @@ class PacienteController extends Controller
         $paciente = Paciente::create($dados);
         broadcast(new PacienteCadastrado($paciente))->toOthers();
 
-        return response(['mensagem' => 'Paciente cadastrado.'], 201);
+        return response(['mensagem' => 'Paciente cadastrado.', 'paciente' => $paciente], 201);
     }
 
     public function obterTodos()
